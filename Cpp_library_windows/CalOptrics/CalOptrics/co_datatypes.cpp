@@ -18,6 +18,17 @@
 //  You should have received a copy of the GNU General Public License
 //  along with CalOptrics.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace co {
+#include <cufft.h>
+#include "co_datatypes.h"
 
+namespace co {
+	//constructor member functions
+	template<class T> CoBool<T>::CoBool(T val)
+	{
+		this->value = val;
+	}
+	template<class T> bool CoBool<T>::val()
+	{
+		return this->val;
+	}
 }

@@ -23,37 +23,40 @@
 
 namespace co {
 	class COerr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	//Host Errors
 	class HostErr : public COerr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class InvalidArgErr : public HostErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	//Device Errors
 	//Cuda Errors
 	class CudaErr : COerr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaSetDeviceErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaDevSyncErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaMallocErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaMemcpyErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaFFTErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
 	};
 	class CudaBLASErr : public CudaErr {
-		virtual void printError() const;
+		virtual void printError(const char *msg) const;
+	};
+	class CudaThrustErr : public CudaErr {
+		virtual void printError(const char *msg) const;
 	};
 }
 

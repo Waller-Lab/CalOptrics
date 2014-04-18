@@ -21,6 +21,9 @@
 #ifndef CO_ARRAYS_H
 #define CO_ARRAYS_H
 
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+
 namespace co {
 	typedef unsigned int uint;
 
@@ -62,6 +65,8 @@ namespace co {
 		~CudaArray();
 	private:
 		DimN dimN;
+		thrust::host_vector<T> h_vec;
+		thrust::device_vector<T> d_vec;
 	};
 }
 

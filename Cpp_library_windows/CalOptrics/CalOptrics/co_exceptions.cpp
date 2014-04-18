@@ -18,6 +18,74 @@
 //  You should have received a copy of the GNU General Public License
 //  along with CalOptrics.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace co {
+#include <iostream>
+#include "co_exceptions.h"
 
+namespace co {
+	
+	//COerr member functions
+	virtual void COerr::printError(const char *msg) const 
+	{
+		std::cerr << "Unknown CalOptrics error occurred: " << msg << std::endl;
+	}
+	
+	//HostErr member functions
+	virtual void HostErr::printError(const char *msg) const 
+	{
+		std::cerr << "Unknown Caloptrics Host Error: " << msg << std::endl;
+	}
+
+	//InvalidArgErr member functions
+	virtual void InvalidArgErr::printError(const char *msg) const 
+	{
+		std::cerr << "Invalid Argument Error: " << msg << std::endl;
+	}
+
+	//CudaErr member functions
+	virtual void CudaErr::printError(const char *msg) const
+	{
+		std::cerr << "Cuda Error occurred: " << msg << std::endl;
+	}
+
+	//CudaSetDeviceErr member functions
+	virtual void CudaSetDeviceErr::printError(const char *msg) const
+	{
+		std::cerr << "Cuda Error occurred: " << msg << std::endl;
+	}
+
+	//CudaDevSynstd::cerr member functions
+	virtual void CudaDevSynstd::cerr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda Device Sync Error occurred: " << msg << std::endl;
+	}
+
+	//CudaMallostd::cerr member functions
+	virtual void CudaMallostd::cerr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda Malloc Error occurred: " << msg << std::endl;
+	}
+
+	//CudaMemcpyErr member functions
+	virtual void CudaMemcpyErr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda Memcpy Error occurred: " << msg << std::endl;
+	}
+
+	//CudaFFTErr member functions
+	virtual void CudaFFTErr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda FFT Error occurred: " << msg << std::endl;
+	}
+
+	//CudaBLASErr member functions
+	virtual void CudaBLASErr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda BLAS Error occurred: " << msg << std::endl;
+	}
+
+	//CudaThrustErr member functions
+	virtual void CudaThrustErr::printError(const char *msg) const 
+	{
+		std::cerr << "Cuda Thrust Error occurred: " << msg << std::endl;
+	}
 }

@@ -18,6 +18,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with CalOptrics.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace co {
+#include<co_arrays.h>
 
+namespace co {
+	DimN::DimN(uint numDims, uint const *dimSizes){
+		
+	}
 }

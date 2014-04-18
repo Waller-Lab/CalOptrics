@@ -24,54 +24,158 @@
 #include <cufft.h> 
 
 namespace co {
-	template<class T> class CoBool {
+	template<> class CoBool<bool> {
 	public:
-		CoBool(T val);
+		CoBool(bool val);
 		bool val();
 	private:
-		T value;
+		bool value;
 	};
 
-	template<class T> class CoFloat {
+	template<> class CoFloat<float> {
 	public:
-		CoFloat(T val);
+		CoFloat(float val);
 		float val();
 	private:
-		T value;
+		float value;
 	};
 
-	template<class T> class CoCFloat {
+	template<> class CoCFloat<cufftComplex> {
 	public:
-		CoCFloat(T val);
-		cufftComplex val();
+		CoCFloat(cufftComplex val);
+		CoCFloat(float re, float im);
+		cufftComplex val() const;
+		// member operator overloads
+		CoCFloat<cufftComplex>& operator+=(CoCFloat<cufftComplex> c)
+		CoCFloat<cufftComplex>& operator+=(float c)
+		CoCFloat<cufftComplex>& operator-=(CoCFloat<cufftComplex> c)
+		CoCFloat<cufftComplex>& operator-=(float c)
+		CoCFloat<cufftComplex>& operator*=(CoCFloat<cufftComplex> c)
+		CoCFloat<cufftComplex>& operator*=(float c)
+		CoCFloat<cufftComplex>& operator/=(CoCFloat<cufftComplex> c)
+		CoCFloat<cufftComplex>& operator/=(float c)
 	private:
-		T value;
+		cufftComplex value;
 	};
 
-	template<class T> class CoDouble {
+	//start CoCFloat function declarations
+	
+	CoCFloat<cufftComplex> operator+(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	CoCFloat<cufftComplex> operator+(CoCFloat<cufftComplex> c1, float d);
+	CoCFloat<cufftComplex> operator+(float d, CoCFloat<cufftComplex> c1);
+
+	CoCFloat<cufftComplex> operator-(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	CoCFloat<cufftComplex> operator-(CoCFloat<cufftComplex> c1, float d);
+	CoCFloat<cufftComplex> operator-(float d, CoCFloat<cufftComplex> c1);
+
+	CoCFloat<cufftComplex> operator*(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	CoCFloat<cufftComplex> operator*(CoCFloat<cufftComplex> c1, float d);
+	CoCFloat<cufftComplex> operator*(float d, CoCFloat<cufftComplex> c1);
+
+	CoCFloat<cufftComplex> operator/(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	CoCFloat<cufftComplex> operator/(CoCFloat<cufftComplex> c1, float d);
+	CoCFloat<cufftComplex> operator/(float d, CoCFloat<cufftComplex> c1);
+
+	CoCFloat<cufftComplex> operator-(CoCFloat<cufftComplex> c1); //unary minus
+	CoCFloat<cufftComplex> operator+(CoCFloat<cufftComplex> c1); //unary plus
+
+	bool operator==(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	bool operator!=(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+
+	istream& operator>>(istream&, CoCFloat<cufftComplex>& c1); //input
+	istream& operator<<(istream&, CoCFloat<cufftComplex>& c1); //output
+
+	CoCFloat<cufftComplex> polar(double rho, double theta);
+	CoCFloat<cufftComplex> conj(CoCFloat<cufftComplex> c);
+
+	CoCFloat<cufftComplex> abs(CoCFloat<cufftComplex> c);
+	CoCFloat<cufftComplex> arg(CoCFloat<cufftComplex> c);
+	CoCFloat<cufftComplex> norm(CoCFloat<cufftComplex> c);
+
+	CoCFloat<cufftComplex> real(CoCFloat<cufftComplex> c);
+	CoCFloat<cufftComplex> imag(CoCFloat<cufftComplex> c);
+
+	//end CoCFloat function declarations
+
+	template<> class CoDouble<double> {
 	public:
-		CoDouble(T val);
-		double val();
+		CoDouble(double val);
+		double val() const;
 	private:
-		T value;
+		double value;
 	};
 
-	template<class T> class CoCDouble {
+	template<> class CoCDouble<cufftDoubleComplex> {
 	public:
-		CoCDouble(T val);
-		cufftDoubleComplex val();
+		CoCDouble(cufftDoubleComplex val);
+		CoCDouble(double re, double im);
+		cufftDoubleComplex val() const;
+		// member operator overloads
+		CoCDouble<cufftDoubleComplex>& operator+=(CoCDouble<cufftDoubleComplex> c)
+		CoCDouble<cufftDoubleComplex>& operator+=(double c)
+		CoCDouble<cufftDoubleComplex>& operator-=(CoCDouble<cufftDoubleComplex> c)
+		CoCDouble<cufftDoubleComplex>& operator-=(double c)
+		CoCDouble<cufftDoubleComplex>& operator*=(CoCDouble<cufftDoubleComplex> c)
+		CoCDouble<cufftDoubleComplex>& operator*=(double c)
+		CoCDouble<cufftDoubleComplex>& operator/=(CoCDouble<cufftDoubleComplex> c)
+		CoCDouble<cufftDoubleComplex>& operator/=(double c)
 	private:
-		T value;
+		cufftComplexComplex value;
 	};
 
-	template<class T> class CoSInt {
+	//start CoCDouble function declarations
+	
+	CoCDouble<cufftDoubleComplex> operator+(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	CoCDouble<cufftDoubleComplex> operator+(CoCDouble<cufftDoubleComplex> c1, double d);
+	CoCDouble<cufftDoubleComplex> operator+(double d, CoCDouble<cufftDoubleComplex> c1);
+
+	CoCDouble<cufftDoubleComplex> operator-(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	CoCDouble<cufftDoubleComplex> operator-(CoCDouble<cufftDoubleComplex> c1, double d);
+	CoCDouble<cufftDoubleComplex> operator-(double d, CoCDouble<cufftDoubleComplex> c1);
+
+	CoCDouble<cufftDoubleComplex> operator*(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	CoCDouble<cufftDoubleComplex> operator*(CoCDouble<cufftDoubleComplex> c1, double d);
+	CoCDouble<cufftDoubleComplex> operator*(double d, CoCDouble<cufftDoubleComplex> c1);
+
+	CoCDouble<cufftDoubleComplex> operator/(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	CoCDouble<cufftDoubleComplex> operator/(CoCDouble<cufftDoubleComplex> c1, double d);
+	CoCDouble<cufftDoubleComplex> operator/(double d, CoCDouble<cufftDoubleComplex> c1);
+
+	CoCDouble<cufftDoubleComplex> operator-(CoCDouble<cufftDoubleComplex> c1); //unary minus
+	CoCDouble<cufftDoubleComplex> operator+(CoCDouble<cufftDoubleComplex> c1); //unary plus
+
+	bool operator==(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	bool operator!=(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+
+	istream& operator>>(istream&, CoCDouble<cufftDoubleComplex>& c1); //input
+	istream& operator<<(istream&, CoCDouble<cufftDoubleComplex>& c1); //output
+
+	CoCDouble<cufftDoubleComplex> polar(double rho, double theta);
+	CoCDouble<cufftDoubleComplex> conj(CoCDouble<cufftDoubleComplex> c);
+
+	CoCDouble<cufftDoubleComplex> abs(CoCDouble<cufftDoubleComplex> c);
+	CoCDouble<cufftDoubleComplex> arg(CoCDouble<cufftDoubleComplex> c);
+	CoCDouble<cufftDoubleComplex> norm(CoCDouble<cufftDoubleComplex> c);
+
+	CoCDouble<cufftDoubleComplex> real(CoCDouble<cufftDoubleComplex> c);
+	CoCDouble<cufftDoubleComplex> imag(CoCDouble<cufftDoubleComplex> c);
+
+	//end CoCDouble function declarations
+
+	template<> class CoSInt<int> {
 	public:
-		int val();
+		CoSInt(int val);
+		int val() const;
+	private:
+		int value;
 	};
 
-	template<class T> class CoUInt {
+	template<> class CoUInt<unsigned> {
 	public:
-		unsigned val();
+		CoUInt(unsigned val);
+		unsigned val() const;
+	private:
+		unsigned value;
 	};
 
 	typedef CoBool<bool> Bool;
