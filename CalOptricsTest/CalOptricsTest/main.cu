@@ -10,6 +10,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <complex>
 
 #include "C:\Users\Diiv\git\CalOptrics\Cpp_library_windows\CalOptrics\CalOptrics\caloptrics.h"
 
@@ -21,6 +22,7 @@ void quitProgramPrompt(bool);
 void coDataTypeSanityChecks();
 
 using namespace co;
+typedef std::complex<float> cfloat;
 
 int main(void)
 {
@@ -30,7 +32,36 @@ int main(void)
 	//anotherThrustTest();
 	//coDataTypeSanityChecks();
 
-	CudaArray<int> nums = CudaArray<int>(1);
+	CudaArray<int> nums1 = CudaArray<int>(1, 3, 1);
+	CudaArray<cfloat> nums2 = CudaArray<cfloat>(1, 3, cfloat(0,1));
+	CudaArray<int> nums3 = CudaArray<int>(1, 3, 2);
+	
+	
+	std::cout << nums1.dims() << std::endl;
+	std::cout << nums1.elements() << std::endl;
+	std::cout << nums1.isRowVector() << std::endl;
+	std::cout << nums1.isColumnVector() << std::endl;
+	std::cout << nums1.isScalar() << std::endl;
+
+	thrust::device_vector<int> test_vec = *nums1.getDeviceVector();
+	
+	thrust::device_vector<cfloat> test_vec2 = *nums2.getDeviceVector();
+
+	thrust::device_vector<int> test_vec3 = *nums3.getDeviceVector();
+
+	std::cout << std::endl;
+	//add(nums1, nums3);
+	
+	for(int i = 0;i < nums1.elements(); i++)
+		std::cout << test_vec[i] << std::endl;
+	std::cout << std::endl;
+	for(int i = 0;i < nums1.elements(); i++)
+		std::cout << test_vec3[i] << std::endl;
+	std::cout << std::endl;
+	for(int i = 0;i < nums1.elements(); i++){
+		cfloat cc = test_vec2[i];
+		std::cout << cc << std::endl;
+	}
 
 	quitProgramPrompt(true);
     return 0;
