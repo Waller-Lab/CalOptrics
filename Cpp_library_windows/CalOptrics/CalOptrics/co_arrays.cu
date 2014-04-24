@@ -121,4 +121,19 @@ namespace co {
 		delete dimNptr;
 	}
 
+	//CudaArray nonmember operator overloads
+	/*
+	template<class T> CudaArray<T> operator+(CudaArray<T> c1, CudaArray<T> c2)
+	{
+		CudaArray<T> output = CudaArray<T>()
+	}
+	template<class T> CudaArray<T> operator-(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> CudaArray<T> operator*(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> CudaArray<T> operator/(CudaArray<T> c1, CudaArray<T> c2);
+
+	template<class T> bool operator==(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> bool operator!=(CudaArray<T> c1, CudaArray<T> c2);
+	*/
+	//Various CudaArray functions
+
 }

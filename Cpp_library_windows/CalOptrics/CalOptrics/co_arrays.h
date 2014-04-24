@@ -72,6 +72,19 @@ namespace co {
 		thrust::host_vector<T>* h_vec_ptr;
 		thrust::device_vector<T>* d_vec_ptr;
 	};
+
+	//CudaArray nonmember operator overloads
+	/*
+	template<class T> CudaArray<T> operator+(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> CudaArray<T> operator-(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> CudaArray<T> operator*(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> CudaArray<T> operator/(CudaArray<T> c1, CudaArray<T> c2);
+
+	template<class T> bool operator==(CudaArray<T> c1, CudaArray<T> c2);
+	template<class T> bool operator!=(CudaArray<T> c1, CudaArray<T> c2);
+	*/
+	//Various CudaArray functions
+
 }
 
 #endif

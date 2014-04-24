@@ -313,15 +313,19 @@ namespace co {
 
 	CoCDouble& CoCDouble::operator*=(CoCDouble other)
 	{
-		this->value.x = this->value.x*other.val().x - this->value.y*other.val().y;
-		this->value.y = this->value.x*other.val().y + this->value.y*other.val().x;
+		double tmpX = this->value.x;
+		double tmpY = this->value.y;
+		this->value.x = tmpX*other.val().x - tmpY*other.val().y;
+		this->value.y = tmpX*other.val().y + tmpY*other.val().x;
 		return *this;
 	}
 
 	CoCDouble& CoCDouble::operator*=(cufftDoubleComplex other)
 	{
-		this->value.x = this->value.x*other.x - this->value.y*other.y;
-		this->value.y = this->value.x*other.y + this->value.y*other.x;
+		double tmpX = this->value.x;
+		double tmpY = this->value.y;
+		this->value.x = tmpX*other.x - tmpY*other.y;
+		this->value.y = tmpX*other.y + tmpY*other.x;
 		return *this;
 	}
 
@@ -334,18 +338,23 @@ namespace co {
 
 	CoCDouble& CoCDouble::operator/=(CoCDouble other)
 	{
-		this->value.x = this->value.x*other.val().x - this->value.y*other.val().y;
-		this->value.y = this->value.x*other.val().y + this->value.y*other.val().x;
-		this->value.x *= 1/norm(other);
-		this->value.y *= 1/norm(other);
+		CoCDouble tmp = conj(other);
+		double tmpX = this->value.x;
+		double tmpY = this->value.y;
+		this->value.x = tmpX*tmp.val().x - tmpY*tmp.val().y;
+		this->value.y = tmpX*tmp.val().y + tmpY*tmp.val().x;
+		this->value.x *= 1/norm(tmp);
+		this->value.y *= 1/norm(tmp);
 		return *this;
 	}
 
 	CoCDouble& CoCDouble::operator/=(cufftDoubleComplex other)
 	{
-		CoCDouble tmp = CoCDouble(other);
-		this->value.x = this->value.x*tmp.val().x - this->value.y*tmp.val().y;
-		this->value.y = this->value.x*tmp.val().y + this->value.y*tmp.val().x;
+		CoCDouble tmp = conj(CoCDouble(other));
+		double tmpX = this->value.x;
+		double tmpY = this->value.y;
+		this->value.x = tmpX*tmp.val().x - tmpY*tmp.val().y;
+		this->value.y = tmpX*tmp.val().y + tmpY*tmp.val().x;
 		this->value.x *= 1/norm(tmp);
 		this->value.y *= 1/norm(tmp);
 		return *this;
@@ -400,15 +409,19 @@ namespace co {
 
 	CoCFloat& CoCFloat::operator*=(CoCFloat other)
 	{
-		this->value.x = this->value.x*other.val().x - this->value.y*other.val().y;
-		this->value.y = this->value.x*other.val().y + this->value.y*other.val().x;
+		float tmpX = this->value.x;
+		float tmpY = this->value.y;
+		this->value.x = tmpX*other.val().x - tmpY*other.val().y;
+		this->value.y = tmpX*other.val().y + tmpY*other.val().x;
 		return *this;
 	}
 
 	CoCFloat& CoCFloat::operator*=(cufftComplex other)
 	{
-		this->value.x = this->value.x*other.x - this->value.y*other.y;
-		this->value.y = this->value.x*other.y + this->value.y*other.x;
+		float tmpX = this->value.x;
+		float tmpY = this->value.y;
+		this->value.x = tmpX*other.x - tmpY*other.y;
+		this->value.y = tmpX*other.y + tmpY*other.x;
 		return *this;
 	}
 
@@ -421,8 +434,11 @@ namespace co {
 
 	CoCFloat& CoCFloat::operator/=(CoCFloat other)
 	{
-		this->value.x = this->value.x*other.val().x - this->value.y*other.val().y;
-		this->value.y = this->value.x*other.val().y + this->value.y*other.val().x;
+		CoCFloat tmp = conj(other);
+		float tmpX = this->value.x;
+		float tmpY = this->value.y;
+		this->value.x = tmpX*tmp.val().x - tmpY*tmp.val().y;
+		this->value.y = tmpX*tmp.val().y + tmpY*tmp.val().x;
 		this->value.x *= 1/norm(other);
 		this->value.y *= 1/norm(other);
 		return *this;
@@ -430,9 +446,11 @@ namespace co {
 
 	CoCFloat& CoCFloat::operator/=(cufftComplex other)
 	{
-		CoCFloat tmp = CoCFloat(other);
-		this->value.x = this->value.x*tmp.val().x - this->value.y*tmp.val().y;
-		this->value.y = this->value.x*tmp.val().y + this->value.y*tmp.val().x;
+		CoCFloat tmp = conj(CoCFloat(other));
+		float tmpX = this->value.x;
+		float tmpY = this->value.y;
+		this->value.x = tmpX*tmp.val().x - tmpY*tmp.val().y;
+		this->value.y = tmpX*tmp.val().y + tmpY*tmp.val().x;
 		this->value.x *= 1/norm(tmp);
 		this->value.y *= 1/norm(tmp);
 		return *this;
@@ -1034,7 +1052,7 @@ namespace co {
 
 	float norm(CoCFloat c)
 	{
-		return std::sqrt(real(c)*real(c) + imag(c)*imag(c));
+		return real(c)*real(c) + imag(c)*imag(c);
 	}
 
 	float real(CoCFloat c)
@@ -1075,7 +1093,7 @@ namespace co {
 
 	double norm(CoCDouble c)
 	{
-		return std::sqrt(real(c)*real(c) + imag(c)*imag(c));
+		return real(c)*real(c) + imag(c)*imag(c);
 	}
 
 	double real(CoCDouble c)

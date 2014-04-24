@@ -28,8 +28,9 @@ int main(void)
 	//thrustCopyFillSequenceExamples();
 	//thrustVectorListExample();
 	//anotherThrustTest();
-	coDataTypeSanityChecks();
-	
+	//coDataTypeSanityChecks();
+
+	CudaArray<int> nums = CudaArray<int>(1);
 
 	quitProgramPrompt(true);
     return 0;
@@ -37,8 +38,8 @@ int main(void)
 
 void coDataTypeSanityChecks()
 {
-	Float f1 = Float(3.14);
-	Float f2 = Float(2.14);
+	Float f1 = Float(3.14f);
+	Float f2 = Float(2.14f);
 	std::cout << (f1.val()==3.14f) << std::endl;
 	std::cout << ((f1*f1-3.14f*3.14f).val() < .0001) << std::endl;
 	std::cout << (((f1+f2)-(3.14f+2.14f)).val() < .0001) << std::endl;
@@ -76,8 +77,31 @@ void coDataTypeSanityChecks()
 
 	std::cout << cf1.val().x << " " << cf1.val().y << std::endl;
 	std::cout << cf2.val().x << " " << cf2.val().y << std::endl;
+	std::cout << norm(cf1) << std::endl;
+	std::cout << abs(cf1) << std::endl;
+	std::cout << conj(cf2).val().x << " " << conj(cf2).val().y << std::endl;
+	std::cout << (cf1+cf2).val().x << " " << (cf1+cf2).val().y << std::endl;
 	std::cout << (cf1*cf2).val().x << " " << (cf1*cf2).val().y << std::endl;
 	std::cout << (cf2/cf2).val().x << " " << (cf2/cf2).val().y << std::endl;
+
+	cufftDoubleComplex c3;
+	c3.x = 2;
+	c3.y = 3;
+	CDouble cd1 = CDouble(c3);
+
+	cufftDoubleComplex c4;
+	c4.x = 2;
+	c4.y = 2;
+	CDouble cd2 = CDouble(c4);
+
+	std::cout << cd1.val().x << " " << cd1.val().y << std::endl;
+	std::cout << cd2.val().x << " " << cd2.val().y << std::endl;
+	std::cout << norm(cd1) << std::endl;
+	std::cout << abs(cd1) << std::endl;
+	std::cout << conj(cd2).val().x << " " << conj(cd2).val().y << std::endl;
+	std::cout << (cd1+cd2).val().x << " " << (cd1+cd2).val().y << std::endl;
+	std::cout << (cd1*cd2).val().x << " " << (cd1*cd2).val().y << std::endl;
+	std::cout << (cd2/cd2).val().x << " " << (cd2/cd2).val().y << std::endl;
 }
 
 void anotherThrustTest()
