@@ -11,20 +11,92 @@
 #include <list>
 #include <vector>
 
+#include "C:\Users\Diiv\git\CalOptrics\Cpp_library_windows\CalOptrics\CalOptrics\caloptrics.h"
+
 void thrustVersionAndVectorExamples(); 
 void thrustCopyFillSequenceExamples();
 void thrustVectorListExample();
+void anotherThrustTest();
 void quitProgramPrompt(bool);
+void coDataTypeSanityChecks();
+
+using namespace co;
 
 int main(void)
 {
     //thrustVersionAndVectorExamples();
 	//thrustCopyFillSequenceExamples();
-	thrustVectorListExample();
+	//thrustVectorListExample();
+	//anotherThrustTest();
+	coDataTypeSanityChecks();
 	
 
 	quitProgramPrompt(true);
     return 0;
+}
+
+void coDataTypeSanityChecks()
+{
+	Float f1 = Float(3.14);
+	Float f2 = Float(2.14);
+	std::cout << (f1.val()==3.14f) << std::endl;
+	std::cout << ((f1*f1-3.14f*3.14f).val() < .0001) << std::endl;
+	std::cout << (((f1+f2)-(3.14f+2.14f)).val() < .0001) << std::endl;
+
+	Double d1 = Double(3.14);
+	Double d2 = Double(2.14);
+	std::cout << (d1.val()==3.14) << std::endl;
+	std::cout << (((d1*d1-3.14*3.14)).val() < .0001) << std::endl;
+	std::cout << (((d1+d2)-(3.14+2.14)).val() < .0001) << std::endl;
+	
+
+	Bool b1 = Bool(true);
+	Bool b2 = Bool(false);
+	std::cout << (b1.val() == true) << std::endl;
+	std::cout << (b2.val() == false) << std::endl;
+	std::cout << (b1 != b2) << std::endl;
+	std::cout << (!(b1 == b2)) << std::endl;
+	std::cout << (!(b1 && b2)).val() << std::endl;
+
+	Int i1 = Int(4);
+	Int i2 = Int(9);
+	std::cout << (i1.val()==4) << std::endl;
+	std::cout << ((i1*i1).val() == 16) << std::endl;
+	std::cout << ((i1+i2).val() == 13) << std::endl;
+
+	cufftComplex c1;
+	c1.x = 2;
+	c1.y = 3;
+	CFloat cf1 = CFloat(c1);
+
+	cufftComplex c2;
+	c2.x = 2;
+	c2.y = 2;
+	CFloat cf2 = CFloat(c2);
+
+	std::cout << cf1.val().x << " " << cf1.val().y << std::endl;
+	std::cout << cf2.val().x << " " << cf2.val().y << std::endl;
+	std::cout << (cf1*cf2).val().x << " " << (cf1*cf2).val().y << std::endl;
+	std::cout << (cf2/cf2).val().x << " " << (cf2/cf2).val().y << std::endl;
+}
+
+void anotherThrustTest()
+{
+	thrust::device_vector<int>* D;
+	thrust::host_vector<int>* H;
+	D = new thrust::device_vector<int>(3,1);
+	H = new thrust::host_vector<int>(*D);
+
+	std::vector<int>* nums = new std::vector<int>;
+	nums->push_back(1);
+	nums->push_back(1);
+	nums->push_back(1);
+	thrust::host_vector<int>* N = new thrust::host_vector<int>(*nums);
+
+
+	for(int i = 0;i < N->size(); i++){
+		std::cout << "N[" << i << "]= " << (*N)[i] << std::endl; 
+	}
 }
 
 void thrustVectorListExample()

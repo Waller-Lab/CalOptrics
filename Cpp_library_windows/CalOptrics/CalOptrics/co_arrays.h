@@ -21,22 +21,24 @@
 #ifndef CO_ARRAYS_H
 #define CO_ARRAYS_H
 
+#include <vector>
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 
 namespace co {
-	typedef unsigned int uint;
 
 	class DimN {
 	public:
-		DimN(uint numDims, uint const *dimSizes);
-		uint dims();
-		uint dim(uint index);
+		DimN(unsigned numDims, unsigned const dimSizes[]);
+		unsigned dims() const;
+		unsigned dim(unsigned index);
+		~DimN();
 	private:
-		uint n;
-		uint *dimVals;
+		unsigned n;
+		unsigned *dimVals;
 	};
-
+	
+	/*
 	template<class T> class Array {
 	public:
 		virtual unsigned dims() const = 0;
@@ -44,29 +46,31 @@ namespace co {
 		virtual bool isScalar() const = 0;
 		virtual bool isRowVector() const = 0;
 		virtual bool isColumnVector() const = 0;
-		virtual T* device() const = 0;
-		virtual T* host() const = 0;
-		virtual ~COArray() = 0;
+		//virtual vector<T> device() const = 0;
+		//virtual vector<T> host() const = 0;
+		virtual ~Array() = 0;
 	};
-	
-	template<class T> class CudaArray : public Array {
+	template<class T> Array<T>::~Array() {}
+	*/
+
+	template<class T> class CudaArray {
 	public:
-		CudaArray(uint size);
-		CudaArray(uint size, T* arr);
-		CudaArray(uint nrows, uint ncols);
-		CudaArray(uint nrows, uint ncols, T* arr);
+		CudaArray(unsigned size);
+		CudaArray(unsigned size, std::vector<T>* arr);
+		CudaArray(unsigned nrows, unsigned ncols);
+		CudaArray(unsigned nrows, unsigned ncols, std::vector<T>* arr);
 		unsigned dims() const;
 		unsigned elements() const;
 		bool isScalar() const;
 		bool isRowVector() const;
 		bool isColumnVector() const;
-		T* device() const;
-		T* host() const;
+		//vector<T> device() const;
+		//vector<T> host() const;
 		~CudaArray();
 	private:
-		DimN dimN;
-		thrust::host_vector<T> h_vec;
-		thrust::device_vector<T> d_vec;
+		DimN *dimNptr;
+		thrust::host_vector<T>* h_vec_ptr;
+		thrust::device_vector<T>* d_vec_ptr;
 	};
 }
 

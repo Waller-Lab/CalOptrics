@@ -24,67 +24,67 @@
 namespace co {
 	
 	//COerr member functions
-	virtual void COerr::printError(const char *msg) const 
+	void COerr::printError(const char *msg) const 
 	{
 		std::cerr << "Unknown CalOptrics error occurred: " << msg << std::endl;
 	}
 	
 	//HostErr member functions
-	virtual void HostErr::printError(const char *msg) const 
+	void HostErr::printError(const char *msg) const 
 	{
 		std::cerr << "Unknown Caloptrics Host Error: " << msg << std::endl;
 	}
 
 	//InvalidArgErr member functions
-	virtual void InvalidArgErr::printError(const char *msg) const 
+	void InvalidArgErr::printError(const char *msg) const 
 	{
 		std::cerr << "Invalid Argument Error: " << msg << std::endl;
 	}
 
 	//CudaErr member functions
-	virtual void CudaErr::printError(const char *msg) const
+	void CudaErr::printError(const char *msg) const
 	{
 		std::cerr << "Cuda Error occurred: " << msg << std::endl;
 	}
 
 	//CudaSetDeviceErr member functions
-	virtual void CudaSetDeviceErr::printError(const char *msg) const
+	void CudaSetDeviceErr::printError(const char *msg) const
 	{
 		std::cerr << "Cuda Error occurred: " << msg << std::endl;
 	}
 
 	//CudaDevSynstd::cerr member functions
-	virtual void CudaDevSynstd::cerr::printError(const char *msg) const 
+	void CudaDevSyncErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda Device Sync Error occurred: " << msg << std::endl;
 	}
 
 	//CudaMallostd::cerr member functions
-	virtual void CudaMallostd::cerr::printError(const char *msg) const 
+	void CudaMallocErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda Malloc Error occurred: " << msg << std::endl;
 	}
 
 	//CudaMemcpyErr member functions
-	virtual void CudaMemcpyErr::printError(const char *msg) const 
+	void CudaMemcpyErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda Memcpy Error occurred: " << msg << std::endl;
 	}
 
 	//CudaFFTErr member functions
-	virtual void CudaFFTErr::printError(const char *msg) const 
+	void CudaFFTErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda FFT Error occurred: " << msg << std::endl;
 	}
 
 	//CudaBLASErr member functions
-	virtual void CudaBLASErr::printError(const char *msg) const 
+	void CudaBLASErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda BLAS Error occurred: " << msg << std::endl;
 	}
 
 	//CudaThrustErr member functions
-	virtual void CudaThrustErr::printError(const char *msg) const 
+	void CudaThrustErr::printError(const char *msg) const 
 	{
 		std::cerr << "Cuda Thrust Error occurred: " << msg << std::endl;
 	}

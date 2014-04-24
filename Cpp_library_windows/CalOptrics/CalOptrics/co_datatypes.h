@@ -24,347 +24,329 @@
 #include <cufft.h> 
 
 namespace co {
-	template<> class CoBool<bool> {
+	class CoBool {
 	public:
 		CoBool(bool val);
 		bool val() const;
 		// member operator overloads
-		CoBool<bool>& operator+=(CoBool<bool> c);
-		CoBool<bool>& operator+=(bool c);
-		CoBool<bool>& operator-=(CoBool<bool> c);
-		CoBool<bool>& operator-=(bool c);
-		CoBool<bool>& operator*=(CoBool<bool> c);
-		CoBool<bool>& operator*=(bool c);
-		CoBool<bool>& operator/=(CoBool<bool> c);
-		CoBool<bool>& operator/=(bool c);
+		
 	private:
 		bool value;
 	};
 
 	//start CoBool function declarations
 	
-	CoBool<bool> operator+(CoBool<bool> c1, CoBool<bool> c2);
-	CoBool<bool> operator+(CoBool<bool> c1, bool d);
-	CoBool<bool> operator+(bool d, CoBool<bool> c1);
+	CoBool operator&&(CoBool c1, CoBool c2);
+	CoBool operator&&(CoBool c1, bool d);
+	CoBool operator&&(bool d, CoBool c1);
 
-	CoBool<bool> operator-(CoBool<bool> c1, CoBool<bool> c2);
-	CoBool<bool> operator-(CoBool<bool> c1, bool d);
-	CoBool<bool> operator-(bool d, CoBool<bool> c1);
+	CoBool operator||(CoBool c1, CoBool c2);
+	CoBool operator||(CoBool c1, bool d);
+	CoBool operator||(bool d, CoBool c1);
 
-	CoBool<bool> operator*(CoBool<bool> c1,CoBool<bool>c2);
-	CoBool<bool> operator*(CoBool<bool> c1, bool d);
-	CoBool<bool> operator*(bool d, CoBool<bool> c1);
+	CoBool operator!(CoBool c1);
 
-	CoBool<bool> operator/(CoBool<bool> c1, CoBool<bool> c2);
-	CoBool<bool> operator/(CoBool<bool> c1, bool d);
-	CoBool<bool> operator/(bool d, CoBool<bool> c1);
+	bool operator==(CoBool c1, CoBool c2);
+	bool operator!=(CoBool c1, CoBool c2);
 
-	CoBool<bool> operator-(CoBool<bool> c1); //unary minus
-	CoBool<bool> operator+(CoBool<bool> c1); //unary plus
-
-	bool operator==(CoBool<bool> c1, CoBool<bool> c2);
-	bool operator!=(CoBool<bool> c1, CoBool<bool> c2);
-
-	//istream& operator>>(istream&, CoBool<bool>& c1); //input
-	//ostream& operator<<(ostream&, CoBool<bool>& c1); //output
+	//istream& operator>>(istream&, CoBool& c1); //input
+	//ostream& operator<<(ostream&, CoBool& c1); //output
 
 	//end CoBool function declarations
 
-	template<> class CoFloat<float> 
+	class CoFloat 
 	{
 	public:
 		CoFloat(float val);
 		float val() const;
 		// member operator overloads
-		CoFloat<float>& operator+=(CoFloat<float> c);
-		CoFloat<float>& operator+=(float c);
-		CoFloat<float>& operator-=(CoFloat<float> c);
-		CoFloat<float>& operator-=(float c);
-		CoFloat<float>& operator*=(CoFloat<float> c);
-		CoFloat<float>& operator*=(float c);
-		CoFloat<float>& operator/=(CoFloat<float> c);
-		CoFloat<float>& operator/=(float c);
+		CoFloat& operator+=(CoFloat c);
+		CoFloat& operator+=(float c);
+		CoFloat& operator-=(CoFloat c);
+		CoFloat& operator-=(float c);
+		CoFloat& operator*=(CoFloat c);
+		CoFloat& operator*=(float c);
+		CoFloat& operator/=(CoFloat c);
+		CoFloat& operator/=(float c);
 	private:
 		float value;
 	};
 
 	//start CoFloat function declarations
 	
-	CoFloat<float> operator+(CoFloat<float> c1, CoFloat<float> c2);
-	CoFloat<float> operator+(CoFloat<float> c1, float d);
-	CoFloat<float> operator+(float d, CoFloat<float> c1);
+	CoFloat operator+(CoFloat c1, CoFloat c2);
+	CoFloat operator+(CoFloat c1, float d);
+	CoFloat operator+(float d, CoFloat c1);
 
-	CoFloat<float> operator-(CoFloat<float> c1, CoFloat<float> c2);
-	CoFloat<float> operator-(CoFloat<float> c1, float d);
-	CoFloat<float> operator-(float d, CoFloat<float> c1);
+	CoFloat operator-(CoFloat c1, CoFloat c2);
+	CoFloat operator-(CoFloat c1, float d);
+	CoFloat operator-(float d, CoFloat c1);
 
-	CoFloat<float> operator*(CoFloat<float> c1, CoFloat<float> c2);
-	CoFloat<float> operator*(CoFloat<float> c1, float d);
-	CoFloat<float> operator*(float d, CoFloat<float> c1);
+	CoFloat operator*(CoFloat c1, CoFloat c2);
+	CoFloat operator*(CoFloat c1, float d);
+	CoFloat operator*(float d, CoFloat c1);
 
-	CoFloat<float> operator/(CoFloat<float> c1, CoFloat<float> c2);
-	CoFloat<float> operator/(CoFloat<float> c1, float d);
-	CoFloat<float> operator/(float d, CoFloat<float> c1);
+	CoFloat operator/(CoFloat c1, CoFloat c2);
+	CoFloat operator/(CoFloat c1, float d);
+	CoFloat operator/(float d, CoFloat c1);
 
-	bool operator==(CoFloat<float> c1, CoFloat<float> c2);
-	bool operator!=(CoFloat<float> c1, CoFloat<float> c2);
+	bool operator==(CoFloat c1, CoFloat c2);
+	bool operator!=(CoFloat c1, CoFloat c2);
 
-	//istream& operator>>(istream&, CoFloat<float>& c1); //input
-	//ostream& operator<<(ostream&, CoFloat<float>& c1); //output
+	//istream& operator>>(istream&, CoFloat& c1); //input
+	//ostream& operator<<(ostream&, CoFloat& c1); //output
 
 	//end CoFloat function declarations
 
-	template<> class CoCFloat<cufftComplex> {
+	class CoCFloat {
 	public:
 		CoCFloat(cufftComplex val);
-		CoCFloat(CoCFloat<cufftComplex> c);
 		cufftComplex val() const;
 		// member operator overloads
-		CoCFloat<cufftComplex>& operator+=(CoCFloat<cufftComplex> c);
-		CoCFloat<cufftComplex>& operator+=(cufftComplex c);
-		CoCFloat<cufftComplex>& operator+=(float c);
-		CoCFloat<cufftComplex>& operator-=(CoCFloat<cufftComplex> c);
-		CoCFloat<cufftComplex>& operator-=(cufftComplex c);
-		CoCFloat<cufftComplex>& operator-=(float c);
-		CoCFloat<cufftComplex>& operator*=(CoCFloat<cufftComplex> c);
-		CoCFloat<cufftComplex>& operator*=(cufftComplex c);
-		CoCFloat<cufftComplex>& operator*=(float c);
-		CoCFloat<cufftComplex>& operator/=(CoCFloat<cufftComplex> c);
-		CoCFloat<cufftComplex>& operator/=(cufftComplex c);
-		CoCFloat<cufftComplex>& operator/=(float c);
+		CoCFloat& operator+=(CoCFloat c);
+		CoCFloat& operator+=(cufftComplex c);
+		CoCFloat& operator+=(float c);
+		CoCFloat& operator-=(CoCFloat c);
+		CoCFloat& operator-=(cufftComplex c);
+		CoCFloat& operator-=(float c);
+		CoCFloat& operator*=(CoCFloat c);
+		CoCFloat& operator*=(cufftComplex c);
+		CoCFloat& operator*=(float c);
+		CoCFloat& operator/=(CoCFloat c);
+		CoCFloat& operator/=(cufftComplex c);
+		CoCFloat& operator/=(float c);
 	private:
 		cufftComplex value;
 	};
 
 	//start CoCFloat function declarations
 	
-	CoCFloat<cufftComplex> operator+(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
-	CoCFloat<cufftComplex> operator+(CoCFloat<cufftComplex> c1, float d);
-	CoCFloat<cufftComplex> operator+(float d, CoCFloat<cufftComplex> c1);
+	CoCFloat operator+(CoCFloat c1, CoCFloat c2);
+	CoCFloat operator+(CoCFloat c1, float d);
+	CoCFloat operator+(float d, CoCFloat c1);
 
-	CoCFloat<cufftComplex> operator-(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
-	CoCFloat<cufftComplex> operator-(CoCFloat<cufftComplex> c1, float d);
-	CoCFloat<cufftComplex> operator-(float d, CoCFloat<cufftComplex> c1);
+	CoCFloat operator-(CoCFloat c1, CoCFloat c2);
+	CoCFloat operator-(CoCFloat c1, float d);
+	CoCFloat operator-(float d, CoCFloat c1);
 
-	CoCFloat<cufftComplex> operator*(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
-	CoCFloat<cufftComplex> operator*(CoCFloat<cufftComplex> c1, float d);
-	CoCFloat<cufftComplex> operator*(float d, CoCFloat<cufftComplex> c1);
+	CoCFloat operator*(CoCFloat c1, CoCFloat c2);
+	CoCFloat operator*(CoCFloat c1, float d);
+	CoCFloat operator*(float d, CoCFloat c1);
 
-	CoCFloat<cufftComplex> operator/(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
-	CoCFloat<cufftComplex> operator/(CoCFloat<cufftComplex> c1, float d);
-	CoCFloat<cufftComplex> operator/(float d, CoCFloat<cufftComplex> c1);
+	CoCFloat operator/(CoCFloat c1, CoCFloat c2);
+	CoCFloat operator/(CoCFloat c1, float d);
+	CoCFloat operator/(float d, CoCFloat c1);
 
-	bool operator==(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
-	bool operator!=(CoCFloat<cufftComplex> c1, CoCFloat<cufftComplex> c2);
+	bool operator==(CoCFloat c1, CoCFloat c2);
+	bool operator!=(CoCFloat c1, CoCFloat c2);
 
-	//istream& operator>>(istream&, CoCFloat<cufftComplex>& c1); //input
-	//ostream& operator<<(ostream&, CoCFloat<cufftComplex>& c1); //output
+	//istream& operator>>(istream&, CoCFloat& c1); //input
+	//ostream& operator<<(ostream&, CoCFloat& c1); //output
 
-	CoCFloat<cufftComplex> polar(float rho, float theta);
-	CoCFloat<cufftComplex> conj(CoCFloat<cufftComplex> c);
+	CoCFloat polar(float rho, float theta);
+	CoCFloat conj(CoCFloat c);
 
-	float abs(CoCFloat<cufftComplex> c);
-	float arg(CoCFloat<cufftComplex> c);
-	float norm(CoCFloat<cufftComplex> c);
+	float abs(CoCFloat c);
+	float arg(CoCFloat c);
+	float norm(CoCFloat c);
 
-	float real(CoCFloat<cufftComplex> c);
-	float imag(CoCFloat<cufftComplex> c);
+	float real(CoCFloat c);
+	float imag(CoCFloat c);
 
 	//end CoCFloat function declarations
 
-	template<> class CoDouble<double> {
+	class CoDouble {
 	public:
 		CoDouble(double val);
 		double val() const;
-		CoDouble<double>& operator+=(CoDouble<double> c);
-		CoDouble<double>& operator+=(double c);
-		CoDouble<double>& operator-=(CoDouble<double> c);
-		CoDouble<double>& operator-=(double c);
-		CoDouble<double>& operator*=(CoDouble<double> c);
-		CoDouble<double>& operator*=(double c);
-		CoDouble<double>& operator/=(CoDouble<double> c);
-		CoDouble<double>& operator/=(double c);
+		CoDouble& operator+=(CoDouble c);
+		CoDouble& operator+=(double c);
+		CoDouble& operator-=(CoDouble c);
+		CoDouble& operator-=(double c);
+		CoDouble& operator*=(CoDouble c);
+		CoDouble& operator*=(double c);
+		CoDouble& operator/=(CoDouble c);
+		CoDouble& operator/=(double c);
 	private:
 		double value;
 	};
 
 	//start CoDouble function declarations
 	
-	CoDouble<double> operator+(CoDouble<double> c1, CoDouble<double> c2);
-	CoDouble<double> operator+(CoDouble<double> c1, double d);
-	CoDouble<double> operator+(double d, CoDouble<double> c1);
+	CoDouble operator+(CoDouble c1, CoDouble c2);
+	CoDouble operator+(CoDouble c1, double d);
+	CoDouble operator+(double d, CoDouble c1);
 
-	CoDouble<double> operator-(CoDouble<double> c1, CoDouble<double> c2);
-	CoDouble<double> operator-(CoDouble<double> c1, double d);
-	CoDouble<double> operator-(double d, CoDouble<double> c1);
+	CoDouble operator-(CoDouble c1, CoDouble c2);
+	CoDouble operator-(CoDouble c1, double d);
+	CoDouble operator-(double d, CoDouble c1);
 
-	CoDouble<double> operator*(CoDouble<double> c1, CoDouble<double> c2);
-	CoDouble<double> operator*(CoDouble<double> c1, double d);
-	CoDouble<double> operator*(double d, CoDouble<double> c1);
+	CoDouble operator*(CoDouble c1, CoDouble c2);
+	CoDouble operator*(CoDouble c1, double d);
+	CoDouble operator*(double d, CoDouble c1);
 
-	CoDouble<double> operator/(CoDouble<double> c1, CoDouble<double> c2);
-	CoDouble<double> operator/(CoDouble<double> c1, double d);
-	CoDouble<double> operator/(double d, CoDouble<double> c1);
+	CoDouble operator/(CoDouble c1, CoDouble c2);
+	CoDouble operator/(CoDouble c1, double d);
+	CoDouble operator/(double d, CoDouble c1);
 
-	bool operator==(CoDouble<double> c1, CoDouble<double> c2);
-	bool operator!=(CoDouble<double> c1, CoDouble<double> c2);
+	bool operator==(CoDouble c1, CoDouble c2);
+	bool operator!=(CoDouble c1, CoDouble c2);
 
-	//istream& operator>>(istream&, CoDouble<double>& c1); //input
-	//ostream& operator<<(ostream&, CoDouble<double>& c1); //output
+	//istream& operator>>(istream&, CoDouble& c1); //input
+	//ostream& operator<<(ostream&, CoDouble& c1); //output
 
 	//end CoDouble function declarations
 
-	template<> class CoCDouble<cufftDoubleComplex> {
+	class CoCDouble {
 	public:
 		CoCDouble(cufftDoubleComplex val);
-		CoCDouble(CoCFloat<cufftDoubleComplex> c);
 		cufftDoubleComplex val() const;
 		// member operator overloads
-		CoCDouble<cufftDoubleComplex>& operator+=(CoCDouble<cufftDoubleComplex> c);
-		CoCDouble<cufftDoubleComplex>& operator+=(cufftDoubleComplex c);
-		CoCDouble<cufftDoubleComplex>& operator+=(double c);
-		CoCDouble<cufftDoubleComplex>& operator-=(CoCDouble<cufftDoubleComplex> c);
-		CoCDouble<cufftDoubleComplex>& operator-=(cufftDoubleComplex c);
-		CoCDouble<cufftDoubleComplex>& operator-=(double c);
-		CoCDouble<cufftDoubleComplex>& operator*=(CoCDouble<cufftDoubleComplex> c);
-		CoCDouble<cufftDoubleComplex>& operator*=(cufftDoubleComplex c);
-		CoCDouble<cufftDoubleComplex>& operator*=(double c);
-		CoCDouble<cufftDoubleComplex>& operator/=(CoCDouble<cufftDoubleComplex> c);
-		CoCDouble<cufftDoubleComplex>& operator/=(cufftDoubleComplex c);
-		CoCDouble<cufftDoubleComplex>& operator/=(double c);
+		CoCDouble& operator+=(CoCDouble c);
+		CoCDouble& operator+=(cufftDoubleComplex c);
+		CoCDouble& operator+=(double c);
+		CoCDouble& operator-=(CoCDouble c);
+		CoCDouble& operator-=(cufftDoubleComplex c);
+		CoCDouble& operator-=(double c);
+		CoCDouble& operator*=(CoCDouble c);
+		CoCDouble& operator*=(cufftDoubleComplex c);
+		CoCDouble& operator*=(double c);
+		CoCDouble& operator/=(CoCDouble c);
+		CoCDouble& operator/=(cufftDoubleComplex c);
+		CoCDouble& operator/=(double c);
 	private:
-		cufftComplexComplex value;
+		cufftDoubleComplex value;
 	};
 
 	//start CoCDouble function declarations
 	
-	CoCDouble<cufftDoubleComplex> operator+(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
-	CoCDouble<cufftDoubleComplex> operator+(CoCDouble<cufftDoubleComplex> c1, double d);
-	CoCDouble<cufftDoubleComplex> operator+(double d, CoCDouble<cufftDoubleComplex> c1);
+	CoCDouble operator+(CoCDouble c1, CoCDouble c2);
+	CoCDouble operator+(CoCDouble c1, double d);
+	CoCDouble operator+(double d, CoCDouble c1);
 
-	CoCDouble<cufftDoubleComplex> operator-(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
-	CoCDouble<cufftDoubleComplex> operator-(CoCDouble<cufftDoubleComplex> c1, double d);
-	CoCDouble<cufftDoubleComplex> operator-(double d, CoCDouble<cufftDoubleComplex> c1);
+	CoCDouble operator-(CoCDouble c1, CoCDouble c2);
+	CoCDouble operator-(CoCDouble c1, double d);
+	CoCDouble operator-(double d, CoCDouble c1);
 
-	CoCDouble<cufftDoubleComplex> operator*(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
-	CoCDouble<cufftDoubleComplex> operator*(CoCDouble<cufftDoubleComplex> c1, double d);
-	CoCDouble<cufftDoubleComplex> operator*(double d, CoCDouble<cufftDoubleComplex> c1);
+	CoCDouble operator*(CoCDouble c1, CoCDouble c2);
+	CoCDouble operator*(CoCDouble c1, double d);
+	CoCDouble operator*(double d, CoCDouble c1);
 
-	CoCDouble<cufftDoubleComplex> operator/(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
-	CoCDouble<cufftDoubleComplex> operator/(CoCDouble<cufftDoubleComplex> c1, double d);
-	CoCDouble<cufftDoubleComplex> operator/(double d, CoCDouble<cufftDoubleComplex> c1);
+	CoCDouble operator/(CoCDouble c1, CoCDouble c2);
+	CoCDouble operator/(CoCDouble c1, double d);
+	CoCDouble operator/(double d, CoCDouble c1);
 
-	bool operator==(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
-	bool operator!=(CoCDouble<cufftDoubleComplex> c1, CoCDouble<cufftDoubleComplex> c2);
+	bool operator==(CoCDouble c1, CoCDouble c2);
+	bool operator!=(CoCDouble c1, CoCDouble c2);
 
-	//istream& operator>>(istream&, CoCDouble<cufftDoubleComplex>& c1); //input
-	//ostream& operator<<(ostream&, CoCDouble<cufftDoubleComplex>& c1); //output
+	//istream& operator>>(istream&, CoCDouble& c1); //input
+	//ostream& operator<<(ostream&, CoCDouble& c1); //output
 
-	CoCDouble<cufftDoubleComplex> polar(double rho, double theta);
-	CoCDouble<cufftDoubleComplex> conj(CoCDouble<cufftDoubleComplex> c);
+	CoCDouble polar(double rho, double theta);
+	CoCDouble conj(CoCDouble c);
 
-	double abs(CoCDouble<cufftDoubleComplex> c);
-	double arg(CoCDouble<cufftDoubleComplex> c);
-	double norm(CoCDouble<cufftDoubleComplex> c);
+	double abs(CoCDouble c);
+	double arg(CoCDouble c);
+	double norm(CoCDouble c);
 
-	double real(CoCDouble<cufftDoubleComplex> c);
-	double imag(CoCDouble<cufftDoubleComplex> c);
+	double real(CoCDouble c);
+	double imag(CoCDouble c);
 
 	//end CoCDouble function declarations
 
-	template<> class CoSInt<int> {
+	class CoSInt {
 	public:
 		CoSInt(int val);
 		int val() const;
 		// member operator overloads
-		CoSInt<int>& operator+=(CoSInt<int> c)
-		CoSInt<int>& operator+=(int c)
-		CoSInt<int>& operator-=(CoSInt<int> c)
-		CoSInt<int>& operator-=(int c)
-		CoSInt<int>& operator*=(CoSInt<int> c)
-		CoSInt<int>& operator*=(int c)
-		CoSInt<int>& operator/=(CoSInt<int> c)
-		CoSInt<int>& operator/=(int c)
+		CoSInt& operator+=(CoSInt c);
+		CoSInt& operator+=(int c);
+		CoSInt& operator-=(CoSInt c);
+		CoSInt& operator-=(int c);
+		CoSInt& operator*=(CoSInt c);
+		CoSInt& operator*=(int c);
+		CoSInt& operator/=(CoSInt c);
+		CoSInt& operator/=(int c);
 	private:
 		int value;
 	};
 
 	//start CoSInt function declarations
 	
-	CoSInt<int> operator+(CoSInt<int> c1, CoSInt<int> c2);
-	CoSInt<int> operator+(CoSInt<int> c1, int d);
-	CoSInt<int> operator+(int d, CoSInt<int> c1);
+	CoSInt operator+(CoSInt c1, CoSInt c2);
+	CoSInt operator+(CoSInt c1, int d);
+	CoSInt operator+(int d, CoSInt c1);
 
-	CoSInt<int> operator-(CoSInt<int> c1, CoSInt<int> c2);
-	CoSInt<int> operator-(CoSInt<int> c1, int d);
-	CoSInt<int> operator-(int d, CoUInt<int> c1);
+	CoSInt operator-(CoSInt c1, CoSInt c2);
+	CoSInt operator-(CoSInt c1, int d);
+	CoSInt operator-(int d, CoSInt c1);
 
-	CoUInt<unsigned> operator*(CoSInt<int> c1, CoSInt<int> c2);
-	CoUInt<unsigned> operator*(CoSInt<int> c1, int d);
-	CoUInt<unsigned> operator*(int d, CoSInt<int> c1);
+	CoSInt operator*(CoSInt c1, CoSInt c2);
+	CoSInt operator*(CoSInt c1, int d);
+	CoSInt operator*(int d, CoSInt c1);
 
-	CoSInt<int> operator/(CoSInt<int> c1, CoSInt<int> c2);
-	CoSInt<int> operator/(CoSInt<int> c1, int d);
-	CoSInt<int> operator/(int d, CoSInt<int> c1);
+	CoSInt operator/(CoSInt c1, CoSInt c2);
+	CoSInt operator/(CoSInt c1, int d);
+	CoSInt operator/(int d, CoSInt c1);
 
-	bool operator==(CoSInt<int> c1, CoSInt<int> c2);
-	bool operator!=(CoSInt<int> c1, CoSInt<int> c2);
+	bool operator==(CoSInt c1, CoSInt c2);
+	bool operator!=(CoSInt c1, CoSInt c2);
 
-	//istream& operator>>(istream&, CoSInt<int>& c1); //input
-	//ostream& operator<<(ostream&, CoSInt<int>& c1); //output
+	//istream& operator>>(istream&, CoSInt& c1); //input
+	//ostream& operator<<(ostream&, CoSInt& c1); //output
 
 	//end CoSInt function declarations
 
-	template<> class CoUInt<unsigned> {
+	class CoUInt {
 	public:
 		CoUInt(unsigned val);
 		unsigned val() const;
 		// member operator overloads
-		CoUInt<unsigned>& operator+=(CoUInt<unsigned> c)
-		CoUInt<unsigned>& operator+=(unsigned c)
-		CoUInt<unsigned>& operator-=(CoUInt<unsigned> c)
-		CoUInt<unsigned>& operator-=(unsigned c)
-		CoUInt<unsigned>& operator*=(CoUInt<unsigned> c)
-		CoUInt<unsigned>& operator*=(unsigned c)
-		CoUInt<unsigned>& operator/=(CoUInt<unsigned> c)
-		CoUInt<unsigned>& operator/=(unsigned c)
+		CoUInt& operator+=(CoUInt c);
+		CoUInt& operator+=(unsigned c);
+		CoUInt& operator-=(CoUInt c);
+		CoUInt& operator-=(unsigned c);
+		CoUInt& operator*=(CoUInt c);
+		CoUInt& operator*=(unsigned c);
+		CoUInt& operator/=(CoUInt c);
+		CoUInt& operator/=(unsigned c);
 	private:
 		unsigned value;
 	};
 
 	//start CoUInt function declarations
 	
-	CoUInt<unsigned> operator+(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
-	CoUInt<unsigned> operator+(CoUInt<unsigned> c1, unsigned d);
-	CoUInt<unsigned> operator+(unsigned d, CoCDouble<cufftDoubleComplex> c1);
+	CoUInt operator+(CoUInt c1, CoUInt c2);
+	CoUInt operator+(CoUInt c1, unsigned d);
+	CoUInt operator+(unsigned d, CoUInt c1);
 
-	CoUInt<unsigned> operator-(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
-	CoUInt<unsigned> operator-(CoUInt<unsigned> c1, unsigned d);
-	CoUInt<unsigned> operator-(unsigned d, CoUInt<unsigned> c1);
+	CoUInt operator-(CoUInt c1, CoUInt c2);
+	CoUInt operator-(CoUInt c1, unsigned d);
+	CoUInt operator-(unsigned d, CoUInt c1);
 
-	CoUInt<unsigned> operator*(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
-	CoUInt<unsigned> operator*(CoUInt<unsigned> c1, double d);
-	CoUInt<unsigned> operator*(double d, CoUInt<unsigned> c1);
+	CoUInt operator*(CoUInt c1, CoUInt c2);
+	CoUInt operator*(CoUInt c1, unsigned d);
+	CoUInt operator*(unsigned d, CoUInt c1);
 
-	CoUInt<unsigned> operator/(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
-	CoUInt<unsigned> operator/(CoUInt<unsigned> c1, double d);
-	CoUInt<unsigned> operator/(double d, CoUInt<unsigned> c1);
+	CoUInt operator/(CoUInt c1, CoUInt c2);
+	CoUInt operator/(CoUInt c1, unsigned d);
+	CoUInt operator/(unsigned d, CoUInt c1);
 
-	bool operator==(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
-	bool operator!=(CoUInt<unsigned> c1, CoUInt<unsigned> c2);
+	bool operator==(CoUInt c1, CoUInt c2);
+	bool operator!=(CoUInt c1, CoUInt c2);
 
-	//istream& operator>>(istream&, CoUInt<unsigned>& c1); //input
-	//ostream& operator<<(ostream&, CoUInt<unsigned>& c1); //output
+	//istream& operator>>(istream&, CoUInt& c1); //input
+	//ostream& operator<<(ostream&, CoUInt& c1); //output
 
 	//end CoUInt function declarations
 	
-	typedef CoBool<bool> Bool;
-	typedef CoFloat<float> Float;
-	typedef CoCFloat<cufftComplex> CFloat;
-	typedef CoDouble<double> Double;
-	typedef CoCDouble<cufftDoubleComplex> CDouble;
-	typedef CoSInt<int> Int;
-	typedef CoUInt<unsigned> UInt;
+	typedef CoBool Bool;
+	typedef CoFloat Float;
+	typedef CoCFloat CFloat;
+	typedef CoDouble Double;
+	typedef CoCDouble CDouble;
+	typedef CoSInt Int;
+	typedef CoUInt UInt;
 }
 
 #endif
