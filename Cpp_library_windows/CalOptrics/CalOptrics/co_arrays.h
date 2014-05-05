@@ -25,17 +25,18 @@
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 
-namespace co {
+namespace co 
+{
 
 	class DimN {
 	public:
-		DimN(unsigned numDims, unsigned const dimSizes[]);
+		DimN(std::vector<unsigned>& dimSizes);
 		unsigned dims() const;
 		unsigned dim(unsigned index);
 		~DimN();
 	private:
 		unsigned n;
-		unsigned *dimVals;
+		std::vector<unsigned> dimVals;
 	};
 	
 	/*
@@ -53,27 +54,41 @@ namespace co {
 	template<class T> Array<T>::~Array() {}
 	*/
 
-	template<class T> class CudaArray {
+	template<typename T> class CudaArray {
 	public:
-		CudaArray(unsigned size);
-		CudaArray(unsigned size, std::vector<T>* arr);
-		CudaArray(unsigned nrows, unsigned ncols);
-		CudaArray(unsigned nrows, unsigned ncols, std::vector<T>* arr);
+		CudaArray(unsigned size, T init_val);
+		CudaArray(unsigned nrows, unsigned ncols, T init_val);
+		//CudaArray(DimN dim);
 		unsigned dims() const;
 		unsigned elements() const;
 		bool isScalar() const;
 		bool isRowVector() const;
 		bool isColumnVector() const;
-		//vector<T> device() const;
-		//vector<T> host() const;
+		DimN getDimN() const;
+		thrust::device_vector<T> d_vec;
 		~CudaArray();
 	private:
 		DimN *dimNptr;
-		thrust::host_vector<T>* h_vec_ptr;
-		thrust::device_vector<T>* d_vec_ptr;
 	};
 
 	//CudaArray nonmember operator overloads
+	template<typename T> void plus(CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void plus(CudaArray<T>& out, CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void minus(CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void minus(CudaArray<T>& out, CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void multiplies(CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void multiplies(CudaArray<T>& out, CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void divides(CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void divides(CudaArray<T>& out, CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void and(CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void or(CudaArray<T>& out, CudaArray<T>& c1, CudaArray<T>& c2);
+	template<typename T> void not(CudaArray<T>& c1);
+	template<typename T> void not(CudaArray<T>& out, CudaArray<T>& c1);
+	template<typename T> void negate(CudaArray<T>& c1);
+	template<typename T> void negate(CudaArray<T>& out, CudaArray<T>& c1);
+	template<typename T> void print_matrix(std::string name, CudaArray<T> A);
+	template<typename T> void print_array(std::string name, CudaArray<T> A);
+	//template<class T> std::ostream& operator<<(std::ostream& os, CudaArray<T>& c2);
 	/*
 	template<class T> CudaArray<T> operator+(CudaArray<T> c1, CudaArray<T> c2);
 	template<class T> CudaArray<T> operator-(CudaArray<T> c1, CudaArray<T> c2);

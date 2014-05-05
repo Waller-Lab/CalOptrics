@@ -7,10 +7,12 @@
 #include <thrust/fill.h>
 #include <thrust/sequence.h>
 
+#include <cusp/version.h>
+#include <cusp/complex.h>
+
 #include <iostream>
 #include <list>
 #include <vector>
-#include <complex>
 
 #include "C:\Users\Diiv\git\CalOptrics\Cpp_library_windows\CalOptrics\CalOptrics\caloptrics.h"
 
@@ -20,9 +22,9 @@ void thrustVectorListExample();
 void anotherThrustTest();
 void quitProgramPrompt(bool);
 void coDataTypeSanityChecks();
+void thrustMULTIPLYExample();
 
 using namespace co;
-typedef std::complex<float> cfloat;
 
 int main(void)
 {
@@ -31,10 +33,12 @@ int main(void)
 	//thrustVectorListExample();
 	//anotherThrustTest();
 	//coDataTypeSanityChecks();
-
-	CudaArray<int> nums1 = CudaArray<int>(1, 3, 1);
-	CudaArray<cfloat> nums2 = CudaArray<cfloat>(1, 3, cfloat(0,1));
-	CudaArray<int> nums3 = CudaArray<int>(1, 3, 2);
+	//thrustMULTIPLYExample();
+	
+	CudaArray<int> nums1 = CudaArray<int>(1, 10, 1);
+	CudaArray<cfloat> nums2 = CudaArray<cfloat>(1, 3, cfloat(1,1));
+	CudaArray<int> nums3 = CudaArray<int>(1, 10, 2);
+	CudaArray<cfloat> nums4 = CudaArray<cfloat>(1, 10, cfloat(2,3));
 	
 	
 	std::cout << nums1.dims() << std::endl;
@@ -43,30 +47,24 @@ int main(void)
 	std::cout << nums1.isColumnVector() << std::endl;
 	std::cout << nums1.isScalar() << std::endl;
 
-	thrust::device_vector<int> test_vec = *nums1.getDeviceVector();
-	
-	thrust::device_vector<cfloat> test_vec2 = *nums2.getDeviceVector();
-
-	thrust::device_vector<int> test_vec3 = *nums3.getDeviceVector();
 
 	std::cout << std::endl;
-	//add(nums1, nums3);
-	
-	for(int i = 0;i < nums1.elements(); i++)
-		std::cout << test_vec[i] << std::endl;
-	std::cout << std::endl;
-	for(int i = 0;i < nums1.elements(); i++)
-		std::cout << test_vec3[i] << std::endl;
-	std::cout << std::endl;
-	for(int i = 0;i < nums1.elements(); i++){
-		cfloat cc = test_vec2[i];
-		std::cout << cc << std::endl;
-	}
+
+	CudaArray<int> nums5 = CudaArray<int>(1, 10, 0);
+	plus<int>(nums5, nums1, nums3);
+
+	CudaArray<bool> bool1 = CudaArray<bool>(10, 1, false);
+	not<bool>(bool1);
+
+	print_matrix("nums5", nums5);
+	print_matrix("boo1", bool1);
+
 
 	quitProgramPrompt(true);
     return 0;
 }
 
+/*
 void coDataTypeSanityChecks()
 {
 	Float f1 = Float(3.14f);
@@ -134,6 +132,7 @@ void coDataTypeSanityChecks()
 	std::cout << (cd1*cd2).val().x << " " << (cd1*cd2).val().y << std::endl;
 	std::cout << (cd2/cd2).val().x << " " << (cd2/cd2).val().y << std::endl;
 }
+*/
 
 void anotherThrustTest()
 {
@@ -209,8 +208,11 @@ void thrustVersionAndVectorExamples()
 {
 	int major = THRUST_MAJOR_VERSION;
     int minor = THRUST_MINOR_VERSION;
+	int cusp_major = CUSP_MAJOR_VERSION;
+    int cusp_minor = CUSP_MINOR_VERSION;
 
     std::cout << "Thrust v" << major << "." << minor << std::endl;
+	std::cout << "Cusp v" << cusp_major << "." << cusp_minor << std::endl;
 
 	// H has storage for 4 integers
 	thrust::host_vector<int> H(4);
@@ -253,6 +255,34 @@ void thrustVersionAndVectorExamples()
 		std::cout << "H[" << i << "] = " << H[i] << std::endl;
 	
 	// H and D are automatically deleted when the function returns
+}
+
+void thrustMULTIPLYExample()
+{
+	thrust::device_vector<cfloat> D1(100000, cfloat(1,2));
+	thrust::device_vector<cfloat> D2(100000, cfloat(2,3));
+	thrust::device_vector<cfloat> out(100000);
+
+	thrust::transform(D1.begin(), D1.end(), D2.begin(), out.begin(), thrust::multiplies<cfloat>());
+
+	// print contents
+	for(unsigned i = 0;i < D1.size()/10000; i++){
+		cfloat cc = D1[i];
+		std::cout << "D1[" << i << "] = " << cc << std::endl;
+	}
+
+	// print contents
+	for(unsigned i = 0;i < D2.size()/10000; i++){
+		cfloat cc = D2[i];
+		std::cout << "D2[" << i << "] = " << cc << std::endl;
+	}
+
+	// print contents
+	for(unsigned i = 0;i < out.size()/10000; i++){
+		cfloat cc = out[i];
+		std::cout << "out[" << i << "] = " << cc << std::endl;
+	}
+
 }
 
 

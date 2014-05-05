@@ -21,7 +21,8 @@
 #ifndef CO_EXCEPTIONS_H
 #define CO_EXCEPTIONS_H
 
-namespace co {
+namespace co 
+{
 	class COerr {
 		virtual void printError(const char *msg) const;
 	};
