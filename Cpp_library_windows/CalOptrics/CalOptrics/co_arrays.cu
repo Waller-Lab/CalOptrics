@@ -40,8 +40,8 @@ namespace co
 	DimN::~DimN()
 	{
 		// empty the vector
-		dimVals.clear();
-		std::vector<unsigned>().swap(dimVals);
+		//dimVals.clear();
+		//std::vector<unsigned>().swap(dimVals);
 	}
 	unsigned DimN::dims() const
 	{
@@ -150,7 +150,7 @@ namespace co
 
 	template<typename T> CudaArray<T>::~CudaArray()
 	{
-		delete dimNptr;
+		//delete dimNptr;
 		// empty the vector
 		d_vec.clear();
 		// deallocate any capacity which may currently be associated with vec
@@ -233,6 +233,41 @@ namespace co
 		thrust::transform(c1Array.d_vec.begin(), c1Array.d_vec.end(), c2Array.d_vec.begin(), outArray.d_vec.begin(), thrust::logical_or<T>());
 	}
 
+	//create your own unary or binary function example:
+	/*
+	 struct sine : public thrust::unary_function<float,float>
+	{
+		__host__ __device__
+		float operator()(float x) { return sinf(x); }
+	};
+
+	struct exponentiate : public thrust::binary_function<float,float,float>
+	{
+		__host__ __device__
+		float operator()(float x, float y) { return powf(x,y); }
+	};
+	*/
+
+	//generic binary function
+	template<typename T> void binaryFunct(CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::binary_function<T,T,T> op)
+	{
+		thrust::transform(c1Array.d_vec.begin(), c1Array.d_vec.end(), c2Array.d_vec.begin(), c1Array.d_vec.begin(), op());
+	}
+	template<typename T> void binaryFunct(CudaArray<T>& outArray, CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::binary_function<T,T,T> op)
+	{
+		thrust::transform(c1Array.d_vec.begin(), c1Array.d_vec.end(), c2Array.d_vec.begin(), outArray.d_vec.begin(), op());
+	}
+
+	//generic unary function
+	template<typename T> void unaryFunct(CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::unary_function<T,T> op)
+	{
+		thrust::transform(c1Array.d_vec.begin(), c1Array.d_vec.end(), c2Array.d_vec.begin(), c1Array.d_vec.begin(), op());
+	}
+	template<typename T> void unaryFunct(CudaArray<T>& outArray, CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::unary_function<T,T> op)
+	{
+		thrust::transform(c1Array.d_vec.begin(), c1Array.d_vec.end(), c2Array.d_vec.begin(), outArray.d_vec.begin(), op());
+	}
+
 	template<typename T> void print_matrix(std::string name, CudaArray<T> A)
 	{
 		int nr_rows_A = A.getDimN().dim(0);
@@ -264,20 +299,7 @@ namespace co
 		std::cout << std::endl;
 	}
 
-	//create your own unary or binary function example:
-	/*
-	 struct sine : public thrust::unary_function<float,float>
-	{
-		__host__ __device__
-		float operator()(float x) { return sinf(x); }
-	};
-
-	struct exponentiate : public thrust::binary_function<float,float,float>
-	{
-		__host__ __device__
-		float operator()(float x, float y) { return powf(x,y); }
-	};
-	*/
+	
 
 	//The explicit instantiation part
 

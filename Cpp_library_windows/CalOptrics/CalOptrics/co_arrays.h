@@ -88,17 +88,12 @@ namespace co
 	template<typename T> void negate(CudaArray<T>& out, CudaArray<T>& c1);
 	template<typename T> void print_matrix(std::string name, CudaArray<T> A);
 	template<typename T> void print_array(std::string name, CudaArray<T> A);
-	//template<class T> std::ostream& operator<<(std::ostream& os, CudaArray<T>& c2);
-	/*
-	template<class T> CudaArray<T> operator+(CudaArray<T> c1, CudaArray<T> c2);
-	template<class T> CudaArray<T> operator-(CudaArray<T> c1, CudaArray<T> c2);
-	template<class T> CudaArray<T> operator*(CudaArray<T> c1, CudaArray<T> c2);
-	template<class T> CudaArray<T> operator/(CudaArray<T> c1, CudaArray<T> c2);
-
-	template<class T> bool operator==(CudaArray<T> c1, CudaArray<T> c2);
-	template<class T> bool operator!=(CudaArray<T> c1, CudaArray<T> c2);
-	*/
-	//Various CudaArray functions
+	
+	//custom function calls
+	template<typename T> void binaryFunct(CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::binary_function<T,T,T> op);
+	template<typename T> void binaryFunct(CudaArray<T>& outArray, CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::binary_function<T,T,T> op);
+	template<typename T> void unaryFunct(CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::unary_function<T,T> op);
+	template<typename T> void unaryFunct(CudaArray<T>& outArray, CudaArray<T>& c1Array, CudaArray<T>& c2Array, thrust::unary_function<T,T> op);
 
 }
 

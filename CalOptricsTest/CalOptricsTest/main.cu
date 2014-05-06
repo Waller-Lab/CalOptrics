@@ -56,8 +56,8 @@ int main(void)
 	CudaArray<bool> bool1 = CudaArray<bool>(10, 1, false);
 	not<bool>(bool1);
 
-	print_matrix("nums5", nums5);
-	print_matrix("boo1", bool1);
+	print_matrix<int>("nums5", nums5);
+	print_matrix<bool>("boo1", bool1);
 
 
 	quitProgramPrompt(true);
